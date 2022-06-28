@@ -1,4 +1,4 @@
-import React, { useContext,useState } from 'react';
+import React, { useContext,useState, useEffect } from 'react';
 
 import logo from '../assets/images/logo-metal.png'
 import classes from '../assets/styles/views/login.module.css'
@@ -14,12 +14,17 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const [isChecked, setIsChecked] = useState(false);
     const [error, setError] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
     const { updateUser } = useContext(UserContext);
 
-    const handleSubmit = (e) => {
+    const loadingDiv = <div className='w-12 h-6 flex justify-center'><div className='h-6 w-6 rounded-[50%]  border border-l-[3px] border-l-dark-blue animate-spin border-white'></div></div>;
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        loginUser();
-        updateUser();
+        await setIsLoading(true);
+        await loginUser();
+        await updateUser();
+        await setIsLoading(false);
     }
 
     const loginUser = async () => {
@@ -43,6 +48,7 @@ const Login = () => {
         }
     }
 
+
   return (
     <div className={`${classes.bgSvg} w-screen h-screen flex flex-col bg-pink-blush justify-center items-center`}>
         <div className="flex flex-col items-center gap-4 justify-center w-[30%] min-h-[22rem] bg-dark-blue shadow-lg rounded-md py-3">
@@ -59,7 +65,7 @@ const Login = () => {
                         <span>Keep Me Logged In</span>
                     </div>
                     <div className='w-full flex justify-start'>
-                    <button className={`${classes.button} px-6 py-2 bg-metal hover:bg-grey-blue transition-colors rounded-md shadow-lg cursor-pointer`}>Login</button>
+                    <button className={`${classes.button} px-6 py-2 bg-metal hover:bg-grey-blue transition-colors rounded-md shadow-lg cursor-pointer`}>{isLoading? loadingDiv : <p>Login</p>}</button>
                     </div> 
                 </form>
             </div>
