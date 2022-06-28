@@ -1,30 +1,46 @@
-import React from 'react';
-import { useState } from 'react';
-import logo from '../assets/images/logo-metal.png'
+import React, { useContext,useState } from 'react';
 
+import logo from '../assets/images/logo-metal.png'
 import classes from '../assets/styles/views/login.module.css'
+import { UserContext } from '../UserContext';
+
 import ToggleSwitch from '../partials/ToggleSwitch';
 
 import axios from 'axios';
+import ErrorModal from '../partials/ErrorModal';
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isChecked, setIsChecked] = useState(false);
+    const [error, setError] = useState(null);
+    const { updateUser } = useContext(UserContext);
 
     const handleSubmit = (e) => {
         e.preventDefault();
         loginUser();
+        updateUser();
     }
 
     const loginUser = async () => {
         const data = { email, password }
         const result = await axios.post('http://localhost:5000/users/login', data);
         if(result.data.error){
-            alert(result.data.error);
+            let errorComponent = <ErrorModal error={result.data.error} closeModal={()=>setError(null)}/>
+            setError(errorComponent);
             return;
         }
         alert('Log In successful '+result.data.name);
+        updateStorage(result.data);
+    }
+
+    const updateStorage = (data) => {
+        if(isChecked){
+            localStorage.setItem('user', JSON.stringify(data));
+        }
+        else{
+            sessionStorage.setItem('user', JSON.stringify(data));
+        }
     }
 
   return (
@@ -44,11 +60,11 @@ const Login = () => {
                     </div>
                     <div className='w-full flex justify-start'>
                     <button className={`${classes.button} px-6 py-2 bg-metal hover:bg-grey-blue transition-colors rounded-md shadow-lg cursor-pointer`}>Login</button>
-                    </div>
-                    
+                    </div> 
                 </form>
             </div>
         </div>
+        {error}
     </div>
   )
 }

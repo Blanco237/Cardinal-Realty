@@ -1,17 +1,22 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken')
 
 const { Users } = require('../models');
 
 //Encryption Level
 const encLevel = 10;
 
+//Secret Key
+const JWT_SECRET = 'Xn#1@2$3%4^5&6*7(8)9_0+-=qwerty';
 
-// router.get('/', async (req, res) => {
-//     dat = await Users.findAll();
-//     res.json(dat);
-// });
+
+router.post('/check', async (req, res) => {
+    const { token } = req.headers;
+    const decoded = await jwt.verify(token, JWT_SECRET);
+    res.json(decoded);
+});
 
 
 router.post('/register', async (req, res) => {
@@ -35,16 +40,18 @@ router.post('/login', async (req, res) => {
     });
 
     if(data){
-        const match = bcrypt.compare(password, data.password);
+        const match = await bcrypt.compare(password, data.password);
         if(match){
-            res.json(data);
+            console.log("Passwords Match");
+            key = await jwt.sign(JSON.stringify(data.dataValues), JWT_SECRET);
+            res.json(key);
         }
         else {
             res.json({'error' : `Wrong password for ${email}`});
         }
     }
     else{
-        res.json({ "error" : 'User Not Found'});                                                                    
+        res.json({ "error" : 'User Not Found'});                                                                   
     }
 }
 );
