@@ -18,6 +18,7 @@ module.exports = {
       'silver': '#ecebff',
       'bubble-gum': '#ff77e9',
       'bermuda': '#78dcca',
+      'dark-faded' : 'rgb(0,0,0,0.3)',
     }
   },
   plugins: [],
