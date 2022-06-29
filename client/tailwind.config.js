@@ -20,7 +20,9 @@ module.exports = {
       'bermuda': '#78dcca',
       'dark-faded' : 'rgb(0,0,0,0.3)',
       'blue' : '#74c0fc',
-      'pink' : '#6741d9'
+      'pink' : '#6741d9',
+      'bubble-gum-faded': 'rgba(255,119,233,0.3)',
+      'bermuda-faded': 'rgba(255,119,233,0.6)',
     }
   },
   plugins: [],
