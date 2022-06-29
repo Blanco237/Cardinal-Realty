@@ -50,9 +50,9 @@ const Register = () => {
             >
               <Form className={`w-full`}>
                 <section
-                  className={`${classes.formSection}-1  min-h-[15rem] flex flex-col gap-4 items-center`}
+                  className={`${classes.formSection}-1  min-h-[20rem] flex flex-col gap-4 items-center justify-between `}
                 >
-                  <h1 className="text-white mb-10 mt-4">
+                  <h1 className="text-white mb-6 mt-4">
                     Personal Information
                   </h1>
                   <div className="flex flex-row justify-center gap-4 items-center ">
@@ -105,15 +105,18 @@ const Register = () => {
                     <div className={`h-9 w-[14rem] px-1 rounded-md flex gap-6 justify-center items-center`} onChange={(e) => setGender(e.target.value)}>
                       <label className="flex flex-col justify-center items-center cursor-pointer">
                         <Field name="gender" type="radio" value="Male" className={`opacity-0`}/>
-                        <i className="text-3xl"><FaMale/></i>
-                        <span>Male</span>
+                        <i className={`text-3xl ${gender==='Male'? 'text-blue': 'text-white'}`}><FaMale/></i>
+                        <span className={`${gender==='Male'? 'text-blue': 'text-white'}`}>Male</span>
                       </label>
                       <label className="flex flex-col justify-center items-center cursor-pointer">
                         <Field name="gender" type="radio" value="Female" className={`opacity-0`}/>
-                        <i className="text-3xl"><FaFemale/></i>
-                        <span>Female</span>
+                        <i className={`text-3xl ${gender==='Female'? 'text-pink': 'text-white'}`}><FaFemale/></i>
+                        <span className={`${gender==='Female'? 'text-pink': 'text-white'}`}>Female</span>
                       </label>
                     </div>
+                  </div>
+                  <div className="w-full h-8 mt-7 flex justify-end items-center text-white px-4">
+                      <button className="px-6 py-2 bg-metal hover:bg-grey-blue transition-colors rounded-md shadow-lg cursor-pointer focus:shadow-sm" onClick={(e) => e.preventDefault()}> Next </button>
                   </div>
                 </section>
               </Form>
