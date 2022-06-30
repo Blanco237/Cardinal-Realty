@@ -84,7 +84,15 @@ const Register = () => {
         </div>
         <div className="flex flex-row items-center justify-start gap-0 w-full h-full px-6">
           <div className="h-full w-1/12  border-r-2  border-r-bubble-gum flex flex-col gap-6 text-white items-center py-5 text-3xl">
-            
+          <div className={`cursor-pointer ${level > 0? 'text-bubble-gum' : 'text-white'}`} onClick={() => setLevel(1)}>
+              <FaDiceOne />
+            </div>
+            <div className={`cursor-pointer ${level > 1? 'text-bubble-gum' : 'text-white'}`} onClick={() => setLevel(2)}>
+              <FaDiceTwo />
+            </div>
+            <div className={`cursor-pointer ${level > 2? 'text-bubble-gum' : 'text-white'}`} onClick={() => setLevel(3)}>
+              <FaDiceThree />
+            </div>
           </div>
           <div className="px-6 h-full  w-11/12">
             <Formik
