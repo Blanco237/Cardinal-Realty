@@ -48,7 +48,8 @@ router.post('/register', async (req, res) => {
     data.password = hashedPassword;
     try{
         await Users.create(data);
-        res.json(data);
+        const key = await jwt.sign(JSON.stringify(data), JWT_SECRET);
+        res.json(key);
     }catch(e){
         res.status(400).json({ error: e.message });
     }
@@ -66,7 +67,7 @@ router.post('/login', async (req, res) => {
         const match = await bcrypt.compare(password, data.password);
         if(match){
             console.log("Passwords Match");
-            key = await jwt.sign(JSON.stringify(data.dataValues), JWT_SECRET);
+            const key = await jwt.sign(JSON.stringify(data.dataValues), JWT_SECRET);
             res.json(key);
         }
         else {
