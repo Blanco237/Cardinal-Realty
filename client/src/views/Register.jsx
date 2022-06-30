@@ -1,39 +1,75 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useContext } from "react";
 
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useDropzone } from "react-dropzone";
 
 import logo from "../assets/images/logo-metal.png";
-import { FaMale, FaFemale } from "react-icons/fa";
+import {
+  FaMale,
+  FaFemale,
+  FaDiceOne,
+  FaDiceTwo,
+  FaDiceThree,
+} from "react-icons/fa";
 import classes from "../assets/styles/views/register.module.css";
+
+import { UserContext } from "../UserContext";
 
 const Register = () => {
   const [gender, setGender] = useState(null);
   const [preview, setPreview] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [level, setLevel] = useState(1);
+  const { updateUser } = useContext(UserContext);
 
+  const loadingDiv = (
+    <div className="w-12 h-6 flex justify-center">
+      <div className="h-6 w-6 rounded-[50%]  border border-l-[3px] border-l-dark-blue animate-spin border-white"></div>
+    </div>
+  );
+
+  /* DROPZONE PROPS */
   const onDrop = useCallback(async (acceptedFile) => {
-      console.log('File Received');
-      console.log(acceptedFile);
-      await setPreview(URL.createObjectURL(acceptedFile[0]));
-      console.log(preview);
-  })
+    await setPreview(URL.createObjectURL(acceptedFile[0]));
+  });
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+  /*END DROPZONE PROPS */
 
+  /* FORM VALIDATION */
   const validationSchema = Yup.object().shape({
     fName: Yup.string().required("First Name is Required"),
     lName: Yup.string(),
     dateOfBirth: Yup.date().required("Date of Birth is Required"),
     gender: Yup.string(),
+    username: Yup.string().min(3).max(15).required("Username is Required"),
+    email: Yup.string().email().required("Email is required"),
+    password: Yup.string().required(),
+    confirmPassword: Yup.string().oneOf(
+      [Yup.ref("password")],
+      "Passwords must match"
+    ),
   });
+  /* END FORM VALIDATION */
 
+  /* FORM SUBMIT */
   const initialValues = {
     fName: "",
     lName: "",
     dateOfBirth: "",
     gender: "",
   };
+
+  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+  const handleSubmit = async (data) => {
+    await setIsLoading(true);
+    await sleep(1500);
+    console.log(data);
+    await setIsLoading(false);
+  };
+  /*END FORM SUBMIT*/
 
   return (
     <div
@@ -47,11 +83,14 @@ const Register = () => {
           <h1 className="text-white text-xl">Registration</h1>
         </div>
         <div className="flex flex-row items-center justify-start gap-0 w-full h-full px-6">
-          <div className="h-full w-1/12 bg-black border-r-2  border-r-bubble-gum"></div>
+          <div className="h-full w-1/12  border-r-2  border-r-bubble-gum flex flex-col gap-6 text-white items-center py-5 text-3xl">
+            
+          </div>
           <div className="px-6 h-full  w-11/12">
             <Formik
               initialValues={initialValues}
               validationSchema={validationSchema}
+              onSubmit={handleSubmit}
             >
               <Form className={`w-full`}>
                 <section
@@ -177,25 +216,111 @@ const Register = () => {
                       <p>Drop Files Here</p>
                     ) : (
                       <p>
-                        Drag and Drop Image here, or<br/> Click to select files
+                        Drag and Drop Image here, or
+                        <br /> Click to select files
                       </p>
                     )}
                   </div>
                   <div className="flex gap-4 justify-start items-center w-full mt-4 text-white pb-4">
                     <div className="flex flex-col items-center justify-center w-2/12">
-                        <p>Image Preview</p>
+                      <p>Image Preview</p>
                     </div>
                     <div className="object-contain w-[8rem] h-[8rem] overflow-hidden rounded-[50%] grid place-items-center">
-                        {preview? <img src={preview} alt="preview" className="w-full object-contain" /> : <p>No Image</p>}
+                      {preview ? (
+                        <img
+                          src={preview}
+                          alt="preview"
+                          className="w-full object-contain"
+                        />
+                      ) : (
+                        <p>No Image</p>
+                      )}
                     </div>
                     <div className="flex items-center justify-end w-7/12">
+                      <button
+                        className="px-6 py-2 bg-metal hover:bg-grey-blue transition-colors rounded-md shadow-lg cursor-pointer focus:shadow-sm"
+                        onClick={(e) => e.preventDefault()}
+                      >
+                        Next
+                      </button>
+                    </div>
+                  </div>
+                </section>
+                <section
+                  className={`${classes.formsection3}  min-h-[20rem] flex flex-col gap-4 items-center justify-start `}
+                >
+                  <h2 className="text-white mt-6">Account Details</h2>
+                  <div className="flex gap-4 w-full px-8 justify-center">
+                    <div className="flex flex-col items-center justify-start">
+                      <Field
+                        name="username"
+                        type="text"
+                        placeholder="Username"
+                        className={`h-9 w-[14rem] px-1 rounded-md`}
+                      />
+                      <ErrorMessage
+                        name="username"
+                        component="span"
+                        className={`${classes.error} text-[crimson] text-sm`}
+                      />
+                    </div>
+                    <div className="flex flex-col items-center justify-start">
+                      <Field
+                        name="email"
+                        type="email"
+                        placeholder="Email"
+                        className={`h-9 w-[14rem] px-1 rounded-md`}
+                      />
+                      <ErrorMessage
+                        name="email"
+                        component="span"
+                        className={`${classes.error} text-[crimson] text-sm`}
+                      />
+                    </div>
+                  </div>
+                  <div className="flex justify-center items-center w-full mt-4 gap-4">
+                    <div className="flex flex-col items-center justify-start">
+                      <Field
+                        name="password"
+                        type="password"
+                        placeholder="Password"
+                        className={`h-9 w-[14rem] px-1 rounded-md`}
+                      />
+                      <ErrorMessage
+                        name="password"
+                        component="span"
+                        className={`${classes.error} text-[crimson] text-sm`}
+                      />
+                    </div>
+                    <div className="flex flex-col items-center justify-start">
+                      <Field
+                        name="confirmPassword"
+                        type="password"
+                        placeholder="Confirm Password"
+                        className={`h-9 w-[14rem] px-1 rounded-md`}
+                      />
+                      <ErrorMessage
+                        name="confirmPassword"
+                        component="span"
+                        className={`${classes.error} text-[crimson] text-sm`}
+                      />
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-end w-7/12">
+                    <p className="text-silver opacity-70">
+                      <span className="text-[red]">*</span> Ensure All
+                      Information Submitted on this form is correct and up to
+                      date
+                    </p>
+                  </div>
+                  <div className="flex items-center justify-end w-10/12 mt-5">
                     <button
                       className="px-6 py-2 bg-metal hover:bg-grey-blue transition-colors rounded-md shadow-lg cursor-pointer focus:shadow-sm"
-                      onClick={(e) => e.preventDefault()}
+                      type="submit"
+                      disabled={isLoading}
                     >
-                      Next
+                      {isLoading ? loadingDiv : <p>Register</p>}
                     </button>
-                    </div>
                   </div>
                 </section>
               </Form>
