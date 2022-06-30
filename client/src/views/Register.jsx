@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useCallback, useContext, useDeferredValue } from "react";
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  useContext,
+  useDeferredValue,
+} from "react";
 
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -15,15 +21,18 @@ import {
 import classes from "../assets/styles/views/register.module.css";
 
 import { UserContext } from "../UserContext";
+import ErrorModal from "../partials/ErrorModal";
 import axios from "axios";
 
 const Register = () => {
   const [gender, setGender] = useState(null);
   const [preview, setPreview] = useState(null);
+  const [file, setFile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [level, setLevel] = useState(1);
   const [userErrorComponent, setUserErrorComponent] = useState(null);
   const [emailErrorComponent, setEmailErrorComponent] = useState(null);
+  const [errorComponent, setErrorComponent] = useState(null);
 
   const { updateUser } = useContext(UserContext);
 
@@ -38,9 +47,14 @@ const Register = () => {
   /* DROPZONE PROPS */
   const onDrop = useCallback(async (acceptedFile) => {
     await setPreview(URL.createObjectURL(acceptedFile[0]));
+    await setFile(acceptedFile[0]);
   });
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    accept: "image/*",
+    multiple: false,
+  });
   /*END DROPZONE PROPS */
 
   /* FORM VALIDATION */
@@ -49,8 +63,13 @@ const Register = () => {
     lName: Yup.string(),
     dateOfBirth: Yup.date().required("Date of Birth is Required"),
     gender: Yup.string(),
-    username: Yup.string().min(3,'Too Short').max(15,'Too Long').required("Username is Required"),
-    email: Yup.string().email('Enter A valid email address').required("Email is required"),
+    username: Yup.string()
+      .min(3, "Too Short")
+      .max(15, "Too Long")
+      .required("Username is Required"),
+    email: Yup.string()
+      .email("Enter A valid email address")
+      .required("Email is required"),
     password: Yup.string().required("Please Input a Password"),
     confirmPassword: Yup.string().oneOf(
       [Yup.ref("password")],
@@ -67,54 +86,101 @@ const Register = () => {
     gender: "",
   };
 
-  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
-  async function checkUser(defferedUsername){
+  async function checkUser(defferedUsername) {
     console.log(defferedUsername);
-    const result = await axios.post('http://localhost:5000/users/check/username', { username: defferedUsername});
-    if(result.data.success){
+    const result = await axios.post(
+      "http://localhost:5000/users/check/username",
+      { username: defferedUsername }
+    );
+    if (result.data.success) {
       await setUserErrorComponent(null);
       return true;
-    }
-    else{
-      await setUserErrorComponent(<span className="text-[crimson] text-sm">Username Already Exist</span>)
+    } else {
+      await setUserErrorComponent(
+        <span className="text-[crimson] text-sm">Username Already Exist</span>
+      );
       return false;
     }
   }
 
-  async function checkEmail(defferedEmail){
-    const result = await axios.post('http://localhost:5000/users/check/email', { email: defferedEmail});
-    if(result.data.success){
+  async function checkEmail(defferedEmail) {
+    const result = await axios.post("http://localhost:5000/users/check/email", {
+      email: defferedEmail,
+    });
+    if (result.data.success) {
       await setUserErrorComponent(null);
       return true;
-    }
-    else{
-      await setEmailErrorComponent(<span className="text-[crimson] text-sm">Email Already Exist</span>)
+    } else {
+      await setEmailErrorComponent(
+        <span className="text-[crimson] text-sm">Email Already Exist</span>
+      );
       return false;
     }
   }
+
+  const uploadImage = async () => {
+    // oath8kdu
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "oath8kdu");
+    const result = await axios.post(
+      "https://api.cloudinary.com/v1_1/blanco237/image/upload",
+      formData
+    );
+    console.log(result);
+    return result.data.secure_url;
+  };
+
+  const updateStorage = (data) => {
+    sessionStorage.setItem("user", JSON.stringify(data));
+  };
 
   const handleSubmit = async (data) => {
     await setIsLoading(true);
     const userCheck = await checkUser(data.username);
     const emailCheck = await checkEmail(data.email);
-    if((userCheck && emailCheck) === false){
+    if ((userCheck && emailCheck) === false) {
       await setIsLoading(false);
       return;
     }
-    await sleep(1500);
-    data.photo = preview;
+    data.photo = await uploadImage();
     console.log(data);
-    await setIsLoading(false);
+    try {
+      const result = await axios.post(
+        "http://localhost:5000/users/register",
+        data
+      );
+      if (result.data.error) {
+        setErrorComponent(
+          <ErrorModal
+            closeModal={() => setErrorComponent(null)}
+            error={result.data.error}
+          />
+        );
+      } else {
+        updateStorage(result.data);
+        updateUser();
+      }
+    } catch (err) {
+      setErrorComponent(
+        <ErrorModal
+          closeModal={() => setErrorComponent(null)}
+          error={err.message}
+        />
+      );
+    } finally {
+      await setIsLoading(false);
+    }
   };
+
   /*END FORM SUBMIT*/
 
   /*Auxilary Functions*/
-    const switchLevel = (e, level) => {
-        e.preventDefault();
-        setLevel(level);
-    }
- /*END Auxilary Functions*/
+  const switchLevel = (e, level) => {
+    e.preventDefault();
+    setLevel(level);
+  };
+  /*END Auxilary Functions*/
 
   return (
     <div
@@ -129,13 +195,28 @@ const Register = () => {
         </div>
         <div className="flex flex-row items-center justify-start gap-0 w-full h-full px-6">
           <div className="h-full w-1/12  border-r-2  border-r-bubble-gum flex flex-col gap-6 text-white items-center py-5 text-3xl">
-          <div className={`cursor-pointer ${level > 0? 'text-bubble-gum' : 'text-white'} hover:text-bermuda-faded`} onClick={() => setLevel(1)}>
+            <div
+              className={`cursor-pointer ${
+                level > 0 ? "text-bubble-gum" : "text-white"
+              } hover:text-bermuda-faded`}
+              onClick={() => setLevel(1)}
+            >
               <FaDiceOne />
             </div>
-            <div className={`cursor-pointer ${level > 1? 'text-bubble-gum' : 'text-white'} hover:text-bermuda-faded`} onClick={() => setLevel(2)}>
+            <div
+              className={`cursor-pointer ${
+                level > 1 ? "text-bubble-gum" : "text-white"
+              } hover:text-bermuda-faded`}
+              onClick={() => setLevel(2)}
+            >
               <FaDiceTwo />
             </div>
-            <div className={`cursor-pointer ${level > 2? 'text-bubble-gum' : 'text-white'} hover:text-bermuda-faded`} onClick={() => setLevel(3)}>
+            <div
+              className={`cursor-pointer ${
+                level > 2 ? "text-bubble-gum" : "text-white"
+              } hover:text-bermuda-faded`}
+              onClick={() => setLevel(3)}
+            >
               <FaDiceThree />
             </div>
           </div>
@@ -147,7 +228,11 @@ const Register = () => {
             >
               <Form className={`w-full relative min-h-[20rem]`}>
                 <section
-                  className={`${classes.formsection1}  min-h-[20rem] flex flex-col gap-4 items-center justify-between absolute top-0 left-0 ${level ===1 ? classes.show : classes.hide}  w-full`}
+                  className={`${
+                    classes.formsection1
+                  }  min-h-[20rem] flex flex-col gap-4 items-center justify-between absolute top-0 left-0 ${
+                    level === 1 ? classes.show : classes.hide
+                  }  w-full`}
                 >
                   <h1 className="text-white mb-6 mt-4">Personal Information</h1>
                   <div className="flex flex-row justify-center gap-4 items-center ">
@@ -250,14 +335,18 @@ const Register = () => {
                   <div className="w-full h-8 mt-7 flex justify-end items-center text-white px-4">
                     <button
                       className="px-6 py-2 bg-metal hover:bg-grey-blue transition-colors rounded-md shadow-lg cursor-pointer focus:shadow-sm"
-                      onClick={(e) =>switchLevel(e,2)}
+                      onClick={(e) => switchLevel(e, 2)}
                     >
                       Next
                     </button>
                   </div>
                 </section>
                 <section
-                  className={`${classes.formsection2}  min-h-[20rem] w-full flex flex-col gap-4 items-center justify-start absolute top-0 left-0 ${level ===2 ? classes.show : classes.hide} `}
+                  className={`${
+                    classes.formsection2
+                  }  min-h-[20rem] w-full flex flex-col gap-4 items-center justify-start absolute top-0 left-0 ${
+                    level === 2 ? classes.show : classes.hide
+                  } `}
                 >
                   <h2 className="text-white">Upload Photo</h2>
                   <div
@@ -292,7 +381,7 @@ const Register = () => {
                     <div className="flex items-center justify-end w-7/12">
                       <button
                         className="px-6 py-2 bg-metal hover:bg-grey-blue transition-colors rounded-md shadow-lg cursor-pointer focus:shadow-sm"
-                        onClick={(e) => switchLevel(e,3)}
+                        onClick={(e) => switchLevel(e, 3)}
                       >
                         Next
                       </button>
@@ -300,7 +389,11 @@ const Register = () => {
                   </div>
                 </section>
                 <section
-                  className={`${classes.formsection3}  min-h-[20rem] flex flex-col gap-4 items-center justify-start absolute top-0 left-0 ${level ===3 ? classes.show : classes.hide} w-full `}
+                  className={`${
+                    classes.formsection3
+                  }  min-h-[20rem] flex flex-col gap-4 items-center justify-start absolute top-0 left-0 ${
+                    level === 3 ? classes.show : classes.hide
+                  } w-full `}
                 >
                   <h2 className="text-white mt-6">Account Details</h2>
                   <div className="flex gap-4 w-full px-8 justify-center">
