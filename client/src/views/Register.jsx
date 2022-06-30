@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useContext } from "react";
+import React, { useState, useEffect, useCallback, useContext, useDeferredValue } from "react";
 
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -15,19 +15,25 @@ import {
 import classes from "../assets/styles/views/register.module.css";
 
 import { UserContext } from "../UserContext";
+import axios from "axios";
 
 const Register = () => {
   const [gender, setGender] = useState(null);
   const [preview, setPreview] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [level, setLevel] = useState(1);
+  const [userErrorComponent, setUserErrorComponent] = useState(null);
+  const [emailErrorComponent, setEmailErrorComponent] = useState(null);
+
   const { updateUser } = useContext(UserContext);
 
+  /*Loading State Component */
   const loadingDiv = (
     <div className="w-12 h-6 flex justify-center">
       <div className="h-6 w-6 rounded-[50%]  border border-l-[3px] border-l-dark-blue animate-spin border-white"></div>
     </div>
   );
+  /*End Loading State Component */
 
   /* DROPZONE PROPS */
   const onDrop = useCallback(async (acceptedFile) => {
@@ -43,9 +49,9 @@ const Register = () => {
     lName: Yup.string(),
     dateOfBirth: Yup.date().required("Date of Birth is Required"),
     gender: Yup.string(),
-    username: Yup.string().min(3).max(15).required("Username is Required"),
-    email: Yup.string().email().required("Email is required"),
-    password: Yup.string().required(),
+    username: Yup.string().min(3,'Too Short').max(15,'Too Long').required("Username is Required"),
+    email: Yup.string().email('Enter A valid email address').required("Email is required"),
+    password: Yup.string().required("Please Input a Password"),
     confirmPassword: Yup.string().oneOf(
       [Yup.ref("password")],
       "Passwords must match"
@@ -63,9 +69,41 @@ const Register = () => {
 
   const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
+  async function checkUser(defferedUsername){
+    console.log(defferedUsername);
+    const result = await axios.post('http://localhost:5000/users/check/username', { username: defferedUsername});
+    if(result.data.success){
+      await setUserErrorComponent(null);
+      return true;
+    }
+    else{
+      await setUserErrorComponent(<span className="text-[crimson] text-sm">Username Already Exist</span>)
+      return false;
+    }
+  }
+
+  async function checkEmail(defferedEmail){
+    const result = await axios.post('http://localhost:5000/users/check/email', { email: defferedEmail});
+    if(result.data.success){
+      await setUserErrorComponent(null);
+      return true;
+    }
+    else{
+      await setEmailErrorComponent(<span className="text-[crimson] text-sm">Email Already Exist</span>)
+      return false;
+    }
+  }
+
   const handleSubmit = async (data) => {
     await setIsLoading(true);
+    const userCheck = await checkUser(data.username);
+    const emailCheck = await checkEmail(data.email);
+    if((userCheck && emailCheck) === false){
+      await setIsLoading(false);
+      return;
+    }
     await sleep(1500);
+    data.photo = preview;
     console.log(data);
     await setIsLoading(false);
   };
@@ -278,6 +316,7 @@ const Register = () => {
                         component="span"
                         className={`${classes.error} text-[crimson] text-sm`}
                       />
+                      {userErrorComponent}
                     </div>
                     <div className="flex flex-col items-center justify-start">
                       <Field
@@ -291,6 +330,7 @@ const Register = () => {
                         component="span"
                         className={`${classes.error} text-[crimson] text-sm`}
                       />
+                      {emailErrorComponent}
                     </div>
                   </div>
                   <div className="flex justify-center items-center w-full mt-4 gap-4">
