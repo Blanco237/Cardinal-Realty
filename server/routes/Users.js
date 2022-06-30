@@ -18,14 +18,37 @@ router.post('/check', async (req, res) => {
     res.json(decoded);
 });
 
+router.post('/check/username', async (req, res) => {
+    const { username } = req.body;
+    const user = await Users.findOne({ where: { username } });
+    if (user) {
+        res.json({error: 'Username already exists'});
+    }
+    else {
+        res.json({success: 'Username is available'});
+    }
+})
+
+router.post('/check/email', async (req, res) => {
+    const { email } = req.body;
+    const user = await Users.findOne({ where: { email } });
+    if (user) {
+        res.json({error: 'Email already exists'});
+    }
+    else {
+        res.json({success: 'Email is available'});
+    }
+})
+
 
 router.post('/register', async (req, res) => {
-    const { name, email, password } = req.body;
+    const { password } = req.body;
+    const data = req.body;
     let hashedPassword = await bcrypt.hash(password, encLevel);
-    const finalData = { name, email, 'password': hashedPassword }
+    data.password = hashedPassword;
     try{
-        await Users.create(finalData);
-        res.json(finalData);
+        await Users.create(data);
+        res.json(data);
     }catch(e){
         res.status(400).json({ error: e.message });
     }
