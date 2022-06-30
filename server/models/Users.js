@@ -1,15 +1,30 @@
 module.exports = (sequelize, DataTypes) => {
 
     const Users = sequelize.define('Users', {
-        // id: {
-        // type: DataTypes.INTEGER,
-        // primaryKey: true,
-        // autoIncrement: true,
-        // allowNull: false,
-        // },
-        name: {
+        fname: {
         type: DataTypes.STRING,
         allowNull: false,
+        },
+        lname: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        },
+        username: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+        },
+        dateOfBirth: {
+        type: DataTypes.DATEONLY,
+        allowNull: false,
+        },
+        gender: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        photo: {
+            type: DataTypes.STRING,
+            allowNull: true,
         },
         email: {
         type: DataTypes.STRING,
@@ -20,14 +35,6 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         },
-        createdAt: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        },
-        updatedAt: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        }
     }, 
     
     {
