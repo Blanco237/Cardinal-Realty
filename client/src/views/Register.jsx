@@ -59,8 +59,8 @@ const Register = () => {
 
   /* FORM VALIDATION */
   const validationSchema = Yup.object().shape({
-    fName: Yup.string().required("First Name is Required"),
-    lName: Yup.string(),
+    fname: Yup.string().required("First Name is Required"),
+    lname: Yup.string(),
     dateOfBirth: Yup.date().required("Date of Birth is Required"),
     gender: Yup.string(),
     username: Yup.string()
@@ -80,14 +80,13 @@ const Register = () => {
 
   /* FORM SUBMIT */
   const initialValues = {
-    fName: "",
-    lName: "",
+    fname: "",
+    lname: "",
     dateOfBirth: "",
     gender: "",
   };
 
   async function checkUser(defferedUsername) {
-    console.log(defferedUsername);
     const result = await axios.post(
       "http://localhost:5000/users/check/username",
       { username: defferedUsername }
@@ -127,7 +126,6 @@ const Register = () => {
       "https://api.cloudinary.com/v1_1/blanco237/image/upload",
       formData
     );
-    console.log(result);
     return result.data.secure_url;
   };
 
@@ -144,7 +142,6 @@ const Register = () => {
       return;
     }
     data.photo = await uploadImage();
-    console.log(data);
     try {
       const result = await axios.post(
         "http://localhost:5000/users/register",
@@ -238,20 +235,20 @@ const Register = () => {
                   <div className="flex flex-row justify-center gap-4 items-center ">
                     <div className="flex flex-col items-center justify-center w-full">
                       <Field
-                        name="fName"
+                        name="fname"
                         type="text"
                         placeholder="First Name"
                         className={`h-9 w-[14rem] px-1 rounded-md`}
                       />
                       <ErrorMessage
-                        name="fName"
+                        name="fname"
                         component="span"
                         className={`${classes.error} text-[crimson] text-sm`}
                       />
                     </div>
                     <div className="flex flex-col items-center justify-center w-full">
                       <Field
-                        name="lName"
+                        name="lname"
                         type="text"
                         placeholder="Last Name"
                         className={`h-9 w-[14rem] px-1 rounded-md`}
@@ -476,6 +473,7 @@ const Register = () => {
           </div>
         </div>
       </div>
+      {errorComponent}
     </div>
   );
 };
