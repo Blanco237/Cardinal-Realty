@@ -71,6 +71,13 @@ const Register = () => {
   };
   /*END FORM SUBMIT*/
 
+  /*Auxilary Functions*/
+    const switchLevel = (e, level) => {
+        e.preventDefault();
+        setLevel(level);
+    }
+ /*END Auxilary Functions*/
+
   return (
     <div
       className={`${classes.bgSvg} w-screen h-screen flex flex-col bg-pink-blush justify-center items-center`}
@@ -84,13 +91,13 @@ const Register = () => {
         </div>
         <div className="flex flex-row items-center justify-start gap-0 w-full h-full px-6">
           <div className="h-full w-1/12  border-r-2  border-r-bubble-gum flex flex-col gap-6 text-white items-center py-5 text-3xl">
-          <div className={`cursor-pointer ${level > 0? 'text-bubble-gum' : 'text-white'}`} onClick={() => setLevel(1)}>
+          <div className={`cursor-pointer ${level > 0? 'text-bubble-gum' : 'text-white'} hover:text-bermuda-faded`} onClick={() => setLevel(1)}>
               <FaDiceOne />
             </div>
-            <div className={`cursor-pointer ${level > 1? 'text-bubble-gum' : 'text-white'}`} onClick={() => setLevel(2)}>
+            <div className={`cursor-pointer ${level > 1? 'text-bubble-gum' : 'text-white'} hover:text-bermuda-faded`} onClick={() => setLevel(2)}>
               <FaDiceTwo />
             </div>
-            <div className={`cursor-pointer ${level > 2? 'text-bubble-gum' : 'text-white'}`} onClick={() => setLevel(3)}>
+            <div className={`cursor-pointer ${level > 2? 'text-bubble-gum' : 'text-white'} hover:text-bermuda-faded`} onClick={() => setLevel(3)}>
               <FaDiceThree />
             </div>
           </div>
@@ -100,9 +107,9 @@ const Register = () => {
               validationSchema={validationSchema}
               onSubmit={handleSubmit}
             >
-              <Form className={`w-full`}>
+              <Form className={`w-full relative min-h-[20rem]`}>
                 <section
-                  className={`${classes.formsection1}  min-h-[20rem] flex flex-col gap-4 items-center justify-between `}
+                  className={`${classes.formsection1}  min-h-[20rem] flex flex-col gap-4 items-center justify-between absolute top-0 left-0 ${level ===1 ? classes.show : classes.hide}  w-full`}
                 >
                   <h1 className="text-white mb-6 mt-4">Personal Information</h1>
                   <div className="flex flex-row justify-center gap-4 items-center ">
@@ -205,19 +212,19 @@ const Register = () => {
                   <div className="w-full h-8 mt-7 flex justify-end items-center text-white px-4">
                     <button
                       className="px-6 py-2 bg-metal hover:bg-grey-blue transition-colors rounded-md shadow-lg cursor-pointer focus:shadow-sm"
-                      onClick={(e) => e.preventDefault()}
+                      onClick={(e) =>switchLevel(e,2)}
                     >
                       Next
                     </button>
                   </div>
                 </section>
                 <section
-                  className={`${classes.formsection2}  min-h-[20rem] flex flex-col gap-4 items-center justify-start `}
+                  className={`${classes.formsection2}  min-h-[20rem] w-full flex flex-col gap-4 items-center justify-start absolute top-0 left-0 ${level ===2 ? classes.show : classes.hide} `}
                 >
                   <h2 className="text-white">Upload Photo</h2>
                   <div
                     {...getRootProps()}
-                    className="bg-bubble-gum-faded border-4 border-bubble-gum rounded-md hover:bg-bermuda-faded w-full h-48 flex flex-col justify-center items-center cursor-pointer"
+                    className="bg-bubble-gum-faded border-4 border-bubble-gum rounded-md hover:bg-bermuda-faded w-full h-32 flex flex-col justify-center items-center cursor-pointer"
                   >
                     <input {...getInputProps()} />
                     {isDragActive ? (
@@ -247,7 +254,7 @@ const Register = () => {
                     <div className="flex items-center justify-end w-7/12">
                       <button
                         className="px-6 py-2 bg-metal hover:bg-grey-blue transition-colors rounded-md shadow-lg cursor-pointer focus:shadow-sm"
-                        onClick={(e) => e.preventDefault()}
+                        onClick={(e) => switchLevel(e,3)}
                       >
                         Next
                       </button>
@@ -255,7 +262,7 @@ const Register = () => {
                   </div>
                 </section>
                 <section
-                  className={`${classes.formsection3}  min-h-[20rem] flex flex-col gap-4 items-center justify-start `}
+                  className={`${classes.formsection3}  min-h-[20rem] flex flex-col gap-4 items-center justify-start absolute top-0 left-0 ${level ===3 ? classes.show : classes.hide} w-full `}
                 >
                   <h2 className="text-white mt-6">Account Details</h2>
                   <div className="flex gap-4 w-full px-8 justify-center">
