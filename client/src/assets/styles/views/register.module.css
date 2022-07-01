@@ -7,6 +7,85 @@
   display: none;
 }
 
+.wave {
+  left: 0;
+  bottom: 0;
+  aspect-ratio: 1/1;
+  width: 25rem;
+  /* height: 10rem; */
+  background: purple;
+}
+
+.wave1 {
+  opacity: 0.3;
+  --initial-radius: 30% 70% 53% 47% / 20% 48% 52% 80%;
+  --final-radius: 56% 44% 70% 30% / 30% 69% 31% 70%;
+  --initial-x: 0;
+  width: 10rem;
+  height: 10rem;
+  --final-x: 80vw;
+  --initial-y: -30vh;
+  --final-y: -50vh;
+  animation: flow 20s linear infinite;
+  /* border-radius: 30% 70% 53% 47% / 20% 48% 52% 80%; */
+}
+
+.wave2{
+  opacity: 0.5;
+  width: 50rem;
+  height: 50rem;
+  --initial-radius:50%;
+  --final-radius: 30% 70% 30% 70% / 65% 0% 100% 35%;
+  --initial-x: 0;
+  --final-x: 10;
+  --initial-y: 0;
+  --final-y: -90vh;
+  animation: flow 20s linear infinite;
+  animation-delay: 350ms;
+}
+
+.wave3 {
+  opacity: 0.7;
+  width: 15rem;
+  height: 15rem;
+  --initial-radius: 77% 24% 63% 38% / 56% 60% 38% 44%;
+  --final-radius: 44% 56% 68% 32% / 65% 81% 19% 35%;
+  --initial-x: 50vw;
+  --final-x: 0;
+  --initial-y: -75vw;
+  --final-y: 0;
+  animation: flow 20s linear infinite;
+  animation-delay: 500ms;
+}
+
+.wave4 {
+  opacity: 0.7;
+  --initial-radius: 77% 24% 63% 38% / 56% 60% 38% 44%;
+  --final-radius: 44% 56% 68% 32% / 65% 81% 19% 35%;
+  --initial-x: 50vw;
+  --final-x: 70vw;
+  --initial-y: 0;
+  --final-y: -55vw;
+  animation: flow 20s linear infinite;
+  animation-delay: 700ms;
+}
+
+
+@keyframes flow {
+  0% {
+    transform: translateY(var(--initial-y)) translateX(var(--initial-x));
+    border-radius: var(--initial-radius);
+  }
+  50%{
+    transform: translateY(var(--final-y)) translateX(var(--final-x));
+    border-radius: var(--final-radius);
+  }
+  100% {
+    transform: translateY(var(--initial-y)) translateX(var(--initial-x));
+    border-radius: var(--initial-radius);
+  }
+}
+
 @keyframes popIn {
   0% {
     opacity: 0;
