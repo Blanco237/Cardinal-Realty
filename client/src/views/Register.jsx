@@ -181,13 +181,13 @@ const Register = () => {
 
   return (
     <div
-      className={`${classes.bgSvg} w-screen h-screen flex flex-col bg-pink-blush relative justify-center items-center`}
+      className={` w-screen h-screen flex flex-col bg-pink-blush relative justify-center items-center`}
     >
       <div className={`${classes.wave} ${classes.wave3} absolute z-0`}></div>
       <div className={`${classes.wave} ${classes.wave1} absolute z-0`}></div>
       <div className={`${classes.wave} ${classes.wave2} absolute z-0`}></div>
       <div className={`${classes.wave} ${classes.wave4} absolute z-0`}></div>
-      <div className="flex flex-col items-center gap-0 justify-center w-[60%] min-h-[27rem] bg-dark-blue shadow-lg rounded-md pt-3 z-10">
+      <div className={` ${classes.bgSvg} flex flex-col items-center gap-0 justify-center w-[60%] min-h-[27rem] bg-dark-blue shadow-lg rounded-md pt-3 z-10`}>
         <div className="flex flex-row items-center justify-start gap-12 w-full  px-6 py-2 border-b-bubble-gum border-b-2">
           <div className="flex flex-col items-center justify-center w-2/12 ">
             <img src={logo} alt="logo" className="w-full" />

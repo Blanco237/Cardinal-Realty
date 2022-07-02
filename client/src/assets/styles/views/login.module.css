@@ -1,3 +1,7 @@
+.bgSvg {
+  animation: intro 900ms linear;
+}
+
 .wave {
     left: 0;
     bottom: 0;
@@ -23,8 +27,8 @@
   
   .wave2{
     opacity: 0.5;
-    width: 50rem;
-    height: 50rem;
+    width: 40rem;
+    height: 40rem;
     --initial-radius:50%;
     --final-radius: 30% 70% 30% 70% / 65% 0% 100% 35%;
     --initial-x: 0;
@@ -77,3 +81,14 @@
     }
   }
   
+ @keyframes intro {
+   0%{
+     transform: translateX(-10%) scale(0) rotateY(-90deg);
+   }
+    50%{
+      transform: translateX(20%) scale(0.5) rotateY(-45deg);
+    }
+    100%{
+      transform: translateX(0%) scale(1) rotateY(0deg);
+    }
+ }

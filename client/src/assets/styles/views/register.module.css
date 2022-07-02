@@ -7,6 +7,11 @@
   display: none;
 }
 
+.bgSvg {
+  animation: intro 900ms linear;
+}
+
+
 .wave {
   left: 0;
   bottom: 0;
@@ -95,4 +100,16 @@
     opacity: 1;
     transform: scale(1);
   }
+}
+
+@keyframes intro {
+  0%{
+    transform: translateX(-10%) scale(0) rotateY(-90deg);
+  }
+   50%{
+     transform: translateX(20%) scale(0.5) rotateY(-45deg);
+   }
+   100%{
+     transform: translateX(0%) scale(1) rotateY(0deg);
+   }
 }

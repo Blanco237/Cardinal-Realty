@@ -51,13 +51,10 @@ const Login = () => {
 
   return (
     <div
-      className={`${classes.bgSvg} w-screen h-screen flex flex-col bg-pink-blush relative justify-center items-center`}
+      className={`w-screen h-screen flex flex-col bg-pink-blush relative justify-center items-center`}
     >
-      <div className={`${classes.wave} ${classes.wave3} absolute z-0`}></div>
-      <div className={`${classes.wave} ${classes.wave1} absolute z-0`}></div>
       <div className={`${classes.wave} ${classes.wave2} absolute z-0`}></div>
-      <div className={`${classes.wave} ${classes.wave4} absolute z-0`}></div>
-        <div className="flex flex-col items-center gap-4 justify-center w-[30%] min-h-[22rem] bg-dark-blue shadow-lg rounded-md py-3 z-10">
+        <div className={` ${classes.bgSvg} flex flex-col items-center gap-4 justify-center w-[30%] min-h-[22rem] bg-dark-blue shadow-lg rounded-md py-3 z-10`}>
             <div className={`w-[50%]`}>
                 <img className={`w-full`} src={logo} alt="logo"/>
             </div>
