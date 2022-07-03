@@ -1,0 +1,6 @@
+.heroBody {
+background-image: linear-gradient(to top, rgba(0,0,0,0.8), rgba(136, 160, 150,0.5)), url('../../images/heroBg.jpg');
+background-position: center center, center center;
+background-repeat: no-repeat, no-repeat;
+background-size: cover;
+}
