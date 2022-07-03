@@ -8,7 +8,7 @@ const Header = () => {
     const [showMenu, setShowMenu] = useState(false);
 
   return (
-    <header className="w-full h-20 px-6 md:px-14 py-1 bg-pink-blush flex justify-between items-center shadow-lg fixed top-0 left-0">
+    <header className="w-full h-20 px-6 md:px-14 py-1 bg-pink-blush flex justify-between items-center  fixed top-0 left-0">
       <div className=" w-5/12 md:w-2/12 h-full object-contain grid place-items-center">
         <img alt="logo" className="w-8/12 object-contain" src={logo}/>
       </div>
@@ -21,7 +21,7 @@ const Header = () => {
           </ul>
         </nav>
         <nav className=" gap-6 items-center flex ">
-          <button className="hover:mt-[-0.3rem] hover:shadow-lg transition-all  px-4 py-1 active:shadow">Login</button>
+          <button className="hover:mt-[-0.3rem] hover:shadow-lg transition-all  px-4 py-1 active:shadow rounded-sm">Login</button>
           <button className="border border-grey-blue px-2 py-1 rounded-sm hover:bg-grey-blue hover:text-pink-blush transition-colors hover:shadow">Register</button>
         </nav>
       </div>
