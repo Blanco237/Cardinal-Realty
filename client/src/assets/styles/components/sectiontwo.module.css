@@ -1,0 +1,9 @@
+.twoImage {
+    background: url('../../images/jason-briscoe-UV81E0oXXWQ-unsplash.jpg') no-repeat;
+    background-size: cover;
+}
+
+.leftImage {
+    background: url('../../images/john-fornander-y3_AHHrxUBY-unsplash.jpg') no-repeat;
+    background-size: cover;
+}
