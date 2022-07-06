@@ -3,6 +3,7 @@ background-image: linear-gradient(to top, rgba(0,0,0,0.8), rgba(136, 160, 150,0.
 background-position: center center, center center;
 background-repeat: no-repeat, no-repeat;
 background-size: cover;
+z-index : 10;
 }
 
 .heroSide {

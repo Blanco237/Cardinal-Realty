@@ -8,7 +8,7 @@ const Header = () => {
     const [showMenu, setShowMenu] = useState(false);
 
   return (
-    <header className="w-full h-20 px-6 md:px-14 py-1 bg-pink-blush flex justify-between items-center  fixed top-0 left-0">
+    <header className="w-full h-20 px-6 md:px-14 py-1 bg-pink-blush flex justify-between items-center  fixed top-0 left-0 z-20">
       <div className=" w-5/12 md:w-2/12 h-full object-contain grid place-items-center">
         <img alt="logo" className="w-8/12 object-contain" src={logo}/>
       </div>
@@ -16,7 +16,7 @@ const Header = () => {
         <nav className="">
           <ul className="flex gap-8 items-center mt-[0.4rem] flex-col md:flex-row">
             {["Home", "About", "Contact", "3DViewer"].map((item, index) => {
-              return <li key={index} className={`cursor-pointer hover:border-b-2 border-b-dark-blue m-0 transition-[border]`}>{item}</li>;
+              return <li key={index} className={`cursor-pointer border-b-2 border-b-[transparent] hover:border-b-2 hover:border-b-dark-blue m-0 transition-[border]`}>{item}</li>;
             })}
           </ul>
         </nav>
