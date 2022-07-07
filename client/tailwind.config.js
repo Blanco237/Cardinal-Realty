@@ -42,6 +42,7 @@ module.exports = {
       'dark-faded' : 'rgb(0,0,0,0.3)',
       'blue' : '#74c0fc',
       'pink' : '#6741d9',
+      'pink-faded': '#6741d9a1',
       'bubble-gum-faded': 'rgba(255,119,233,0.3)',
       'bermuda-faded': 'rgba(255,119,233,0.6)',
     }
