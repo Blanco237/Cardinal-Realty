@@ -2,11 +2,12 @@ import React from 'react'
 
 import classes from '../../assets/styles/components/sectiontwo.module.css';
 
-import { FaAngleUp as FaArrowUpRight } from 'react-icons/fa'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowUpRightFromSquare as faArrowUpRight } from '@fortawesome/free-solid-svg-icons'
 
 const SectionTwo = () => {
   return (
-    <section className='w-full min-h-screen bg-dark-blue px-2 py-4 flex gap-10 justify-center'>
+    <section className='w-full min-h-screen bg-dark-blue px-14 pr-8 py-4 flex gap-10 justify-center'>
         <div className='w-1/2  flex flex-col px-6 pt-10 h-fit gap-3'>
             <h1 className='text-pink-blush text-4xl font-semibold text-left'>We Provide You With the Best Property and Agents to build Your <span className='text-pink'>Dream Home.</span></h1>
             <div className={`${classes.twoImage} h-[90vh] bg-black rounded-md w-10/12`}>
@@ -17,7 +18,7 @@ const SectionTwo = () => {
             <div className='w-full h-[63vh] flex justify-end'>
                 <div className={`${classes.leftImage} w-7/12 h-full rounded shadow-sm shadow-white relative`}>
                     <aside className='flex flex-col gap-1 w-32   bg-pink-blush px-1 py-2 shadow rounded absolute left-[20%] bottom-[-70px]'>
-                        <i className={classes.icon}><FaArrowUpRight /></i>
+                        <i className={classes.icon}><FontAwesomeIcon icon={faArrowUpRight} /></i>
                         <h3 className='font-semibold'>820+</h3>
                         <p>Property Build</p>
                     </aside>
