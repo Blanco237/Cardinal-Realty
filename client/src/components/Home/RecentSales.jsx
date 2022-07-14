@@ -29,7 +29,7 @@ const RecentSales = () => {
       <h1 className="text-dark-blue text-3xl font-semibold">
         Check out Our Recent Sales
       </h1>
-      <div className="w-full grid grid-cols-2 gap-2">
+      <div className="w-full grid grid-cols-2 gap-4">
         {
             [...Array(6)].map((_, i) => (
                 <PropertyCard key={i} {...data[0]} />
