@@ -23,7 +23,7 @@ const PropertyCard = ({ property_id, listing_id, photo, prop_type,price,address,
       };
 
   return (
-    <div className='w-full flex justify-center rounded-md  overflow-hidden shadow mb-3'>
+    <div className='w-full flex justify-center rounded-md  overflow-hidden shadow-md mb-3'>
         <div className='w-2/5 object-cover p-0 overflow-hidden'>
             <img src={photo} alt='property' className='w-[110%] max-w-[110%] object-cover'/>
         </div>
