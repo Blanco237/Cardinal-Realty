@@ -11,7 +11,7 @@ const HeroSection = () => {
           <h1 className="md:text-7xl text-4xl text-left font-bold">
               Find Your Best Smart Real - Estate
           </h1>
-          <button className="py-4 mt-4 bg-grey-blue hover:bg-bubble-gum-faded hover:shadow-lg shadow-white active:shadow-none transition-all w-8/12 rounded-md cursor-pointer">
+          <button className="py-4 mt-4 bg-grey-blue hover:bg-bubble-gum-faded hover:shadow-lg shadow-white active:shadow-none transition-all md:w-8/12 rounded-md cursor-pointer">
               Search For Your Dream Home
           </button>
           <button className="py-4 bg-dark-blue hover:bg-bubble-gum-faded hover:shadow-lg shadow-white active:shadow-none transition-all w-7/12 rounded-md cursor-pointer">

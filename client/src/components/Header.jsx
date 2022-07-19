@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { Link } from 'react-router-dom'
 
 import logo from '../assets/images/logo-metal.png'
 import { FaBars } from 'react-icons/fa'
+import { ROUTES } from "../Router/routes";
 
 const Header = () => {
 
@@ -15,15 +17,15 @@ const Header = () => {
       <div className={`flex gap-20 ${showMenu? 'absolute md:static top-16 md:top-0 left-0 md:left-[100%] flex-col md:flex-row px-6 py-3 shadow md:shadow-none items-center md:justify-end bg-pink-blush w-full animate-menuIn': 'absolute md:static top-16 md:top-0 left-[-999px] md:left-[100%] shadow md:shadow-none items-center md:items-end bg-pink-blush w-full flex-col md:flex-row animate-menuOut md:justify-end'}`}>
         <nav className="">
           <ul className="flex gap-8 items-center mt-[0.4rem] flex-col md:flex-row">
-            {["Home", "About", "Contact", "3DViewer"].map((item, index) => {
-              return <li key={index} className={`cursor-pointer border-b-2 border-b-[transparent] hover:border-b-2 hover:border-b-dark-blue m-0 transition-[border]`}>{item}</li>;
+            {[{title: "Home",link: ROUTES.HOME}, {title:"About",link:ROUTES.ABOUT}, {title:"Contact",link:ROUTES.CONTACT}, {title:"3DViewer",link:ROUTES.VIEW}].map((item, index) => {
+              return <li key={index} className={`cursor-pointer border-b-2 border-b-[transparent] hover:border-b-2 hover:border-b-dark-blue m-0 transition-[border]`}><Link to={item.link} className='text-inherit'>{item.title}</Link></li>;
             })}
           </ul>
         </nav>
         <nav className=" gap-6 items-center flex ">
-          <button className="hover:mt-[-0.3rem] hover:shadow-lg transition-all  px-4 py-1 active:shadow rounded-sm">Login</button>
-          <button className="border border-grey-blue px-2 py-1 rounded-sm hover:bg-grey-blue hover:text-pink-blush transition-colors hover:shadow">Register</button>
-        </nav>
+          <Link to={ROUTES.LOGIN}><button className="hover:mt-[-0.3rem] hover:shadow-lg transition-all  px-4 py-1 active:shadow rounded-sm">Login</button></Link>
+          <Link to={ROUTES.REGISTER}><button className="border border-grey-blue px-2 py-1 rounded-sm hover:bg-grey-blue hover:text-pink-blush transition-colors hover:shadow">Register</button></Link>
+        </nav>    
       </div>
       <div className={`text-2xl text-dark-blue cursor-pointer md:hidden ${showMenu? 'rotate-90 animate-rotate' : 'rotate-0 animate-rotateReverse'}`} onClick={() => setShowMenu(!showMenu)}>
             <FaBars />
