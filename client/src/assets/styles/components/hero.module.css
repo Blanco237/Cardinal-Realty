@@ -10,4 +10,5 @@ z-index : 10;
 background-image: url('../../images/hero.jpg');
 background-position: center center;
 background-size: cover;
+z-index: 20;
 }

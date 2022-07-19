@@ -25,11 +25,11 @@ const RecentSales = () => {
   ];
 
   return (
-    <section className="w-full min-h-screen bg-pink-blush px-14 py-6">
-      <h1 className="text-dark-blue text-3xl font-semibold">
+    <section className="w-full min-h-screen bg-pink-blush md:px-14 px-4 py-6 mt-4">
+      <h1 className="text-dark-blue text-3xl font-semibold mb-6">
         Check out Our Recent Sales
       </h1>
-      <div className="w-full grid grid-cols-2 gap-4">
+      <div className="w-full grid md:grid-cols-2 gap-4 grid-cols-1">
         {
             [...Array(6)].map((_, i) => (
                 <PropertyCard key={i} {...data[0]} />

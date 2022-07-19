@@ -4,16 +4,16 @@ import logo from '../assets/images/logo-white.png';
 
 const Footer = () => {
   return (
-    <footer className='w-full min-h-[30vh] bg-army-green flex px-14 py-3 justify-around items-start text-white'>
-        <div className="w-2/12 flex flex-col items-center justify-center">
+    <footer className='w-full min-h-[30vh] bg-army-green flex md:flex-row flex-col md:px-14 px-4 py-3 justify-around items-start text-white'>
+        <div className="md:w-2/12 w-3/5 flex flex-col md:items-center items-start text-left md:text-center md:gap-4 justify-center">
             <img src={logo} alt="Cardinal Logo" className="w-8/12"/>
             <p className="text-md">
                 Your Ultimate Real Estate Home Matcher
             </p>
         </div>
-        <div>
-            <h2 className='text-xl font-bold underline'>Quick Links</h2>
-            <ul className="flex flex-col items-start pl-4 gap-4 justify-center">
+        <div className='text-left'>
+            <h2 className='text-xl font-bold underline  mb-3 mt-2'>Quick Links</h2>
+            <ul className="flex flex-col items-start gap-4 justify-center list-none">
                 <li className="text-sm">
                     <a href="#">Home</a>
                 </li>
@@ -31,9 +31,9 @@ const Footer = () => {
                 </li>
             </ul>
         </div>
-        <div>
-            <h2 className='text-xl font-bold underline'>Utilities</h2>
-            <ul className="flex flex-col items-start pl-4 gap-4 justify-center">
+        <div className='text-left'>
+            <h2 className='text-xl font-bold underline mb-3 mt-2'>Utilities</h2>
+            <ul className="flex flex-col items-start gap-4 justify-center list-none">
                 <li className="text-sm">
                     <a href="#">Search Properties</a>
                 </li>

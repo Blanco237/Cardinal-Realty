@@ -3,6 +3,7 @@ import HeroSection from '../components/Home/HeroSection'
 import Partner from '../components/Home/Partner'
 import RecentSales from '../components/Home/RecentSales'
 import SectionTwo from '../components/Home/SectionTwo'
+import SVG from '../components/Home/SVG'
 import Testimonials from '../components/Home/Testimonials'
 
 const Home = () => {
@@ -13,9 +14,7 @@ const Home = () => {
         <SectionTwo />
         <RecentSales />
         <Testimonials />
-        <section className='w-full h-[20vh] bg-grey-blue'>
-
-        </section>
+        <SVG />
     </div>
   )
 }

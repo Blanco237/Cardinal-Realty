@@ -35,7 +35,7 @@ const Testimonials = () => {
 
   return (
     <section className="w-full min-h-[70vh] text-white bg-dark-blue px-[6vw] py-4 flex flex-col ">
-      <h1 className="text-2xl font-bold mb-20">
+      <h1 className="text-2xl font-bold md:mb-20 mb-6">
         What Our Customers say About Us
       </h1>
       <Slider {...settings}>

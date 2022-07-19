@@ -7,18 +7,17 @@ import { faArrowUpRightFromSquare as faArrowUpRight } from '@fortawesome/free-so
 
 const SectionTwo = () => {
   return (
-    <section className='w-full min-h-screen bg-dark-blue px-14 pr-8 py-4 flex gap-10 justify-center'>
-        <div className='w-1/2  flex flex-col px-6 pt-10 h-fit gap-3'>
-            <h1 className='text-pink-blush text-4xl font-semibold text-left'>We Provide You With the Best Property and Agents to build Your <span className='text-pink'>Dream Home.</span></h1>
-            <div className={`${classes.twoImage} h-[90vh] bg-black rounded-md w-10/12`}>
-                <img src="" alt="" />
+    <section className='w-full min-h-screen bg-dark-blue md:px-14 px-6 md:pr-8 py-4 flex md:flex-row flex-col md:gap-10 justify-center'>
+        <div className='md:w-1/2 w-full flex flex-col md:px-6 px-2 md:pt-10 h-fit gap-3'>
+            <h1 className='text-pink-blush md:text-4xl text-3xl font-semibold text-left'>We Provide You With the Best Property and Agents to build Your <span className='text-pink'>Dream Home.</span></h1>
+            <div className={`${classes.twoImage} md:h-[90vh] h-[50vh] bg-black rounded-md md:w-10/12 w-11/12`}>
             </div>
         </div>
-        <div className='w-1/2 flex flex-col items-center pr-8 py-10 justify-between'>
-            <div className='w-full h-[63vh] flex justify-end'>
-                <div className={`${classes.leftImage} w-7/12 h-full rounded shadow-sm shadow-white relative`}>
-                    <aside className='flex flex-col gap-1 w-32   bg-pink-blush px-1 py-2 shadow rounded absolute left-[20%] bottom-[-70px]'>
-                        <i className={classes.icon}><FontAwesomeIcon icon={faArrowUpRight} /></i>
+        <div className='md:w-1/2 w-full flex flex-col items-center md:pr-8 py-10 justify-between'>
+            <div className='w-full md:h-[63vh] flex justify-end mb-6 md:mb-0'>
+                <div className={`${classes.leftImage} w-11/12 md:w-7/12 md:h-full h-[50vh] rounded shadow-sm shadow-white relative`}>
+                    <aside className='flex flex-col gap-1 md:w-32 w-20 bg-pink-blush px-1 py-1 md:py-2 shadow rounded absolute md:left-[20%] left-0 md:bottom-[-70px] bottom-0'>
+                        <i className={`${classes.icon} md:flex hidden`}><FontAwesomeIcon icon={faArrowUpRight} /></i>
                         <h3 className='font-semibold'>820+</h3>
                         <p>Property Build</p>
                     </aside>
