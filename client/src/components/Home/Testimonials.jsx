@@ -11,7 +11,8 @@ const Testimonials = () => {
     arrows: false,
     draggable: true,
     centerPadding: '2rem',
-    className: 'w-11/12 mr-4',
+    className: 'w-12/12 mr-4',
+    dotsClass: 'slick-dots',
     infinite: true,
     speed: 500,
     slidesToShow: 2,
@@ -34,14 +35,14 @@ const Testimonials = () => {
 
   return (
     <section className="w-full min-h-[70vh] text-white bg-dark-blue px-[6vw] py-4 flex flex-col ">
-      <h1 className="text-2xl font-bold mb-16">
+      <h1 className="text-2xl font-bold mb-20">
         What Our Customers say About Us
       </h1>
       <Slider {...settings}>
         {[...Array(7)].map(() => {
           return (
             <div className="rounded flex flex-col p-6 border items-start text-left mr-3">
-              <h3>Adam Smith</h3>
+              <h3 className="font-bold">Adam Smith</h3>
               <p className="text-sm">Product User</p>
               <p className="text-md">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.

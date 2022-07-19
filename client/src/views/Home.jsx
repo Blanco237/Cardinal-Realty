@@ -7,12 +7,15 @@ import Testimonials from '../components/Home/Testimonials'
 
 const Home = () => {
   return (
-    <div className='bg-pink-blush w-full mt-20 py-8 flex flex-col justify-center items-center'>
+    <div className='bg-pink-blush w-full mt-20 pt-8 flex flex-col justify-center items-center'>
         <HeroSection />
         <Partner />
         <SectionTwo />
         <RecentSales />
         <Testimonials />
+        <section className='w-full h-[20vh] bg-grey-blue'>
+
+        </section>
     </div>
   )
 }
