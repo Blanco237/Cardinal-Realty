@@ -16,13 +16,31 @@ module.exports = {
         rotate : {
           '0%' : { transform: 'rotate(0deg)'},
           '100%' : { transform: 'rotate(90deg)'}
+        },
+        popIn : {
+          '0%' : {
+            transform: 'scale(0)'
+          },
+          '100%' : {
+            transform: 'scale(1)'
+          }
+        },
+        fadeIn : {
+          'from' : {
+            opacity: '0'
+          },
+          'to' : {
+            opacity: '1'
+          }
         }
       },
       animation: {
         menuIn: 'menuIn 0.5s ease-in-out',
         menuOut: 'menuOut 0.5s ease-in-out',
         rotate: 'rotate 0.5s ease-in-out',
-        rotateReverse: 'rotate 1.5s ease-in-out reverse'
+        rotateReverse: 'rotate 1.5s ease-in-out reverse',
+        popIn : 'popIn 0.5s ease-in',
+        fadeIn: 'fadeIn 0.5s ease-in'
       }
     },
     colors: {

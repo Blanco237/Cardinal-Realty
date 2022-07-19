@@ -1,6 +1,7 @@
-import React from "react";
+import React, {useState} from "react";
 
 import house from "../../assets/images/house.jpg";
+import agent from '../../assets/images/timothy.jpg'
 import PropertyCard from "../../partials/PropertyCard";
 
 const RecentSales = () => {
@@ -17,7 +18,7 @@ const RecentSales = () => {
       baths: 2,
       sqft: "1,000 sqft",
       agent_name: "John Doe",
-      agent_photo: "https://randomuser.me/api/portraits/",
+      agent_photo: agent,
       sold_date: "Aug 31 2021",
       lat: 40.823225,
       lon: -73.946494,
