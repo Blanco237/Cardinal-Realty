@@ -7,7 +7,6 @@
     bottom: 0;
     aspect-ratio: 1/1;
     width: 25rem;
-    /* height: 10rem; */
     background: purple;
   }
   
@@ -37,6 +36,13 @@
     --final-y: -90vh;
     animation: flow 20s linear infinite;
     animation-delay: 350ms;
+  }
+
+  @media screen and (max-width: 768px) {
+    .wave2 {
+      width: 20rem;
+      height: 20rem;
+    }
   }
   
   .wave3 {

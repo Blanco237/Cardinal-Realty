@@ -3,6 +3,11 @@ import React from 'react'
 import logo from '../assets/images/logo-white.png';
 
 const Footer = () => {
+    console.log(window.location.pathname);
+    if(window.location.pathname === '/login' || window.location.pathname === '/register') {
+        return null;
+    }
+
   return (
     <footer className='w-full min-h-[30vh] bg-army-green flex md:flex-row flex-col md:px-14 px-4 py-3 justify-around items-start text-white'>
         <div className="md:w-2/12 w-3/5 flex flex-col md:items-center items-start text-left md:text-center md:gap-4 justify-center">

@@ -183,19 +183,16 @@ const Register = () => {
     <div
       className={` w-screen h-screen flex flex-col bg-pink-blush relative justify-center items-center`}
     >
-      <div className={`${classes.wave} ${classes.wave3} absolute z-0`}></div>
-      <div className={`${classes.wave} ${classes.wave1} absolute z-0`}></div>
       <div className={`${classes.wave} ${classes.wave2} absolute z-0`}></div>
-      <div className={`${classes.wave} ${classes.wave4} absolute z-0`}></div>
-      <div className={` ${classes.bgSvg} flex flex-col items-center gap-0 justify-center w-[60%] min-h-[27rem] bg-dark-blue shadow-lg rounded-md pt-3 z-10`}>
-        <div className="flex flex-row items-center justify-start gap-12 w-full  px-6 py-2 border-b-bubble-gum border-b-2">
+      <div className={` ${classes.bgSvg} flex flex-col items-center gap-0 justify-center md:w-[60%] w-11/12 md:min-h-[27rem] min-h-[32rem] bg-dark-blue shadow-lg rounded-md pt-3 z-10`}>
+        <div className="flex flex-row items-center justify-start md:gap-12 gap-4 w-full px-6 py-2 border-b-bubble-gum border-b-2">
           <div className="flex flex-col items-center justify-center w-2/12 ">
             <img src={logo} alt="logo" className="w-full" />
           </div>
           <h1 className="text-white text-xl">Registration</h1>
         </div>
-        <div className="flex flex-row items-center justify-start gap-0 w-full h-full px-6">
-          <div className="h-full w-1/12  border-r-2  border-r-bubble-gum flex flex-col gap-6 text-white items-center py-5 text-3xl">
+        <div className="flex md:flex-row flex-col items-center justify-start gap-0 w-full h-full px-6">
+          <div className="md:h-full md:w-1/12 w-full md:border-b-0  md:border-r-2 border-b-2  border-r-bubble-gum flex md:flex-col flex-row gap-6 text-white items-center justify-center md:py-5 py-2 text-3xl">
             <div
               className={`cursor-pointer ${
                 level > 0 ? "text-bubble-gum" : "text-white"
@@ -221,7 +218,7 @@ const Register = () => {
               <FaDiceThree />
             </div>
           </div>
-          <div className="px-6 h-full  w-11/12">
+          <div className="md:px-6 px-1 h-full  w-11/12">
             <Formik
               initialValues={initialValues}
               validationSchema={validationSchema}
@@ -231,12 +228,12 @@ const Register = () => {
                 <section
                   className={`${
                     classes.formsection1
-                  }  min-h-[20rem] flex flex-col gap-4 items-center justify-between absolute top-0 left-0 ${
+                  }  min-h-[20rem] flex flex-col gap-4 items-center md:justify-between justify-start absolute top-0 left-0 ${
                     level === 1 ? classes.show : classes.hide
                   }  w-full`}
                 >
-                  <h1 className="text-white mb-6 mt-4">Personal Information</h1>
-                  <div className="flex flex-row justify-center gap-4 items-center ">
+                  <h1 className="text-white md:mb-6 mt-4">Personal Information</h1>
+                  <div className="flex md:flex-row flex-col justify-center gap-4 items-center ">
                     <div className="flex flex-col items-center justify-center w-full">
                       <Field
                         name="fname"
@@ -259,8 +256,8 @@ const Register = () => {
                       />
                     </div>
                   </div>
-                  <div className="flex gap-6 items-center justify-end">
-                    <label className="text-white  w-[14rem] px-1 rounded-md">
+                  <div className="flex md:gap-6 gap-0 md:flex-row flex-col items-center justify-end">
+                    <label className="text-white  w-[14rem] px-1">
                       Date Of Birth
                     </label>
                     <div className="flex flex-col">
@@ -277,14 +274,14 @@ const Register = () => {
                       />
                     </div>
                   </div>
-                  <div className="flex flex-row justify-around items-center mt-4">
-                    <div className={`h-9 w-[14rem] px-1 rounded-md `}>
-                      <label className="text-white h-9 w-[14rem] px-1 rounded-md align-middle text-center">
+                  <div className="flex flex-row justify-around items-center md:mt-4">
+                    <div className={`h-9 md:w-[14rem] px-1 rounded-md `}>
+                      <label className="text-white h-9 md:w-[14rem]  px-1 rounded-md align-middle text-center">
                         Gender
                       </label>
                     </div>
                     <div
-                      className={`h-9 w-[14rem] px-1 rounded-md flex gap-6 justify-center items-center`}
+                      className={`h-9 md:w-[14rem] w-[10rem] px-1 rounded-md flex gap-6 justify-center items-center`}
                       onChange={(e) => setGender(e.target.value)}
                     >
                       <label className="flex flex-col justify-center items-center cursor-pointer">
@@ -358,7 +355,7 @@ const Register = () => {
                     {isDragActive ? (
                       <p>Drop Files Here</p>
                     ) : (
-                      <p>
+                      <p className="text-center">
                         Drag and Drop Image here, or
                         <br /> Click to select files
                       </p>
@@ -368,12 +365,12 @@ const Register = () => {
                     <div className="flex flex-col items-center justify-center w-2/12">
                       <p>Image Preview</p>
                     </div>
-                    <div className="object-contain w-[8rem] h-[8rem] overflow-hidden rounded-[50%] grid place-items-center">
+                    <div className="object-contain md:w-[8rem] md:h-[8rem] w-[6rem] h-[5rem] overflow-hidden rounded-full grid place-items-center">
                       {preview ? (
                         <img
                           src={preview}
                           alt="preview"
-                          className="w-full object-contain"
+                          className="w-[180rem] rounded-full"
                         />
                       ) : (
                         <p>No Image</p>
@@ -392,12 +389,12 @@ const Register = () => {
                 <section
                   className={`${
                     classes.formsection3
-                  }  min-h-[20rem] flex flex-col gap-4 items-center justify-start absolute top-0 left-0 ${
+                  }  min-h-[20rem] flex flex-col md:gap-4 gap-2 items-center justify-start absolute top-0 left-0 ${
                     level === 3 ? classes.show : classes.hide
                   } w-full `}
                 >
-                  <h2 className="text-white mt-6">Account Details</h2>
-                  <div className="flex gap-4 w-full px-8 justify-center">
+                  <h2 className="text-white md:mt-6 mt-2 mb-1">Account Details</h2>
+                  <div className="flex md:flex-row flex-col gap-4 w-full px-8 justify-center">
                     <div className="flex flex-col items-center justify-start">
                       <Field
                         name="username"
@@ -427,7 +424,7 @@ const Register = () => {
                       {emailErrorComponent}
                     </div>
                   </div>
-                  <div className="flex justify-center items-center w-full mt-4 gap-4">
+                  <div className="flex md:flex-row flex-col justify-center items-center w-full md:mt-4 mt-2 gap-4">
                     <div className="flex flex-col items-center justify-start">
                       <Field
                         name="password"
@@ -455,8 +452,8 @@ const Register = () => {
                       />
                     </div>
                   </div>
-                  <div className="flex items-center justify-end w-7/12">
-                    <p className="text-silver opacity-70">
+                  <div className="flex items-center justify-end md:w-7/12">
+                    <p className="text-silver opacity-70 md:text-lg text-sm text-center">
                       <span className="text-[red]">*</span> Ensure All
                       Information Submitted on this form is correct and up to
                       date

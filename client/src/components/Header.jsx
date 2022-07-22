@@ -8,13 +8,17 @@ import { ROUTES } from "../Router/routes";
 const Header = () => {
 
     const [showMenu, setShowMenu] = useState(false);
+    let transparent = false;
+    if (window.location.pathname === '/login' || window.location.pathname === '/register') {
+        transparent = true;
+    }
 
   return (
-    <header className="w-full h-20 px-6 md:px-14 py-1 bg-pink-blush flex justify-between items-center  fixed top-0 left-0 z-20">
+    <header className={`w-full h-20 px-6 md:px-14 py-1 ${transparent? 'bg-[transparent]' : 'bg-pink-blush'} flex justify-between items-center  fixed top-0 left-0 z-20`}>
       <div className=" w-5/12 md:w-2/12 h-full object-contain grid place-items-center">
         <img alt="logo" className="w-8/12 object-contain" src={logo}/>
       </div>
-      <div className={`flex gap-20 ${showMenu? 'absolute md:static top-16 md:top-0 left-0 md:left-[100%] flex-col md:flex-row px-6 py-3 shadow md:shadow-none items-center md:justify-end bg-pink-blush w-full animate-menuIn': 'absolute md:static top-16 md:top-0 left-[-999px] md:left-[100%] shadow md:shadow-none items-center md:items-end bg-pink-blush w-full flex-col md:flex-row animate-menuOut md:justify-end'}`}>
+      <div className={`flex gap-20 ${transparent? 'md:bg-[transparent]' : 'bg-pink-blush'} ${showMenu? 'absolute md:static top-16 md:top-0 left-0 md:left-[100%] flex-col md:flex-row px-6 py-3 shadow md:shadow-none items-center md:justify-end w-full animate-menuIn bg-pink-blush': 'absolute md:static top-16 md:top-0 left-[-999px] md:left-[100%] shadow md:shadow-none items-center md:items-end  w-full flex-col md:flex-row animate-menuOut md:justify-end'}`}>
         <nav className="">
           <ul className="flex gap-8 items-center mt-[0.4rem] flex-col md:flex-row">
             {[{title: "Home",link: ROUTES.HOME}, {title:"About",link:ROUTES.ABOUT}, {title:"Contact",link:ROUTES.CONTACT}, {title:"3DViewer",link:ROUTES.VIEW}].map((item, index) => {
